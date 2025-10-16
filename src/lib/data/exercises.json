@@ -1,0 +1,20 @@
+[
+  {
+    "id": "ex1",
+    "title": "Inclinación Pélvica",
+    "description": "Acuéstese de espaldas con las rodillas flexionadas. Aplane la espalda contra el suelo contrayendo los músculos abdominales y doblando ligeramente la pelvis hacia arriba. Mantenga la posición durante 10 segundos. Repita de 8 a 12 veces.",
+    "videoUrl": "https://www.youtube.com/embed/3-x0wAnS6-I"
+  },
+  {
+    "id": "ex2",
+    "title": "Rodilla al Pecho",
+    "description": "Acuéstese de espaldas con las rodillas flexionadas y los pies apoyados en el suelo. Lleve una rodilla al pecho, manteniendo el otro pie apoyado en el suelo (o la otra pierna estirada, lo que se sienta mejor en la parte baja de la espalda). Mantenga la posición de 15 a 30 segundos. Repita con la otra pierna. Haga de 2 a 4 repeticiones por cada pierna.",
+    "videoUrl": "https://www.youtube.com/embed/5b2b2y_B-vE"
+  },
+  {
+    "id": "ex3",
+    "title": "Estiramiento Gato-Vaca",
+    "description": "Comience a cuatro patas. Al inhalar, deje que su vientre se hunda hacia el suelo (Vaca). Al exhalar, redondee la columna hacia el techo (Gato). Continúe durante 10-15 respiraciones.",
+    "videoUrl": "https://www.youtube.com/embed/kqnua4rHVVA"
+  }
+]

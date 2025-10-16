@@ -1,0 +1,39 @@
+
+[
+  {
+    "id": "pre1",
+    "title": "Levantar objetos pesados incorrectamente",
+    "image_id": "heavy-lifting-wrong",
+    "is_good": false
+  },
+  {
+    "id": "pre2",
+    "title": "Mala postura al sentarse",
+    "image_id": "bad-sitting-posture",
+    "is_good": false
+  },
+  {
+    "id": "pre3",
+    "title": "Permanecer sentado por mucho tiempo",
+    "image_id": "long-sitting",
+    "is_good": false
+  },
+  {
+    "id": "pre4",
+    "title": "Levantar objetos pesados correctamente",
+    "image_id": "heavy-lifting-right",
+    "is_good": true
+  },
+  {
+    "id": "pre5",
+    "title": "Buena postura al sentarse",
+    "image_id": "good-sitting-posture",
+    "is_good": true
+  },
+  {
+    "id": "pre6",
+    "title": "Tomar descansos y estirar",
+    "image_id": "stretching-break",
+    "is_good": true
+  }
+]

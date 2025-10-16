@@ -1,0 +1,46 @@
+{
+  "placeholderImages": [
+    {
+      "id": "spine-background",
+      "description": "Stylized illustration of the human spine.",
+      "imageUrl": "https://picsum.photos/seed/spinebg/1080/1920",
+      "imageHint": "spine illustration"
+    },
+    {
+      "id": "heavy-lifting-wrong",
+      "description": "A person lifting a heavy box with incorrect posture, bending at the waist.",
+      "imageUrl": "https://picsum.photos/seed/liftwrong/400/300",
+      "imageHint": "lifting incorrect"
+    },
+    {
+      "id": "bad-sitting-posture",
+      "description": "A person slouching in a chair while working on a laptop.",
+      "imageUrl": "https://picsum.photos/seed/sitwrong/400/300",
+      "imageHint": "slouching posture"
+    },
+    {
+      "id": "long-sitting",
+      "description": "An illustration showing pressure on the spine from prolonged sitting.",
+      "imageUrl": "https://picsum.photos/seed/longsit/400/300",
+      "imageHint": "sitting pressure"
+    },
+    {
+      "id": "heavy-lifting-right",
+      "description": "A person lifting a heavy box with correct posture, bending at the knees.",
+      "imageUrl": "https://picsum.photos/seed/liftright/400/300",
+      "imageHint": "lifting correct"
+    },
+    {
+      "id": "good-sitting-posture",
+      "description": "A person sitting upright with good posture at a desk.",
+      "imageUrl": "https://picsum.photos/seed/sitright/400/300",
+      "imageHint": "ergonomic posture"
+    },
+    {
+      "id": "stretching-break",
+      "description": "A person taking a break from a desk to stretch their back.",
+      "imageUrl": "https://picsum.photos/seed/stretch/400/300",
+      "imageHint": "office stretch"
+    }
+  ]
+}
