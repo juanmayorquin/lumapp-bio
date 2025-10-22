@@ -119,13 +119,20 @@ export function SidebarLayout({ children }: { children: React.ReactNode }) {
           {/* Racha en el borde derecho de la navbar */}
           {streak !== undefined && (
             <div className="ml-auto flex items-center">
-              <div className="inline-flex items-center gap-2 rounded-full bg-card px-3 py-1 text-card-foreground shadow-sm">
-                <Flame className="text-amber-500" />
-                <div className="text-sm leading-none">
-                  <div className="font-semibold">{streak}</div>
-                  <div className="text-xs text-muted-foreground">día{streak === 1 ? '' : 's'}</div>
-                </div>
-              </div>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <div className="inline-flex items-center gap-2 rounded-full bg-card px-3 py-1 text-card-foreground shadow-sm">
+                    <Flame className="text-amber-500" />
+                    <div className="text-sm leading-none">
+                      <div className="font-semibold">{streak}</div>
+                      <div className="text-xs text-muted-foreground">día{streak === 1 ? '' : 's'}</div>
+                    </div>
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent side="left">
+                  <p>Racha actual: {streak} día{streak === 1 ? '' : 's'}. Entra cada día para mantenerla.</p>
+                </TooltipContent>
+              </Tooltip>
             </div>
           )}
         </header>
