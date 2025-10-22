@@ -4,6 +4,8 @@ import { SidebarLayout } from '@/components/SidebarLayout';
 import React, { useState, useCallback, useEffect, useRef, useMemo } from 'react';
 import { SetupScreen } from './SetupScreen';
 import localStorageService, { UserData } from '@/services/localStorageService';
+import { toast } from '@/hooks/use-toast';
+import OneSignalInit from './OneSignalInit';
 
 export const AppContext = React.createContext<any>({
   name: "",
@@ -183,47 +185,111 @@ export function AppStateProvider({ children }: { children: React.ReactNode }) {
 
   // Notificación de bienvenida: mostrar en cada carga si el permiso está concedido o tras concederlo
   useEffect(() => {
-    if (typeof window === 'undefined' || !('Notification' in window)) return;
+    if (typeof window === 'undefined') return;
 
-    try {
-      // si ya se concedió permiso, mostrar inmediatamente
-      if (Notification.permission === 'granted') {
+    const isNotificationSupported = 'Notification' in window;
+
+    const showWelcomeNotification = () => {
+      try {
+        // This will show a notification while the page is open (foreground).
         new Notification('Bienvenido a LumApp', {
           body: 'Bienvenido a LumApp — descubre cómo cuidar tu espalda hoy.',
           icon: '/favicon.ico',
         });
-        return;
+      } catch (e) {
+        // If Notifications are available but constructor fails, fallback to toast
+        toast({ title: 'Bienvenido a LumApp', description: 'Bienvenido a LumApp — descubre cómo cuidar tu espalda hoy.' });
       }
+    };
 
-      // si no está denegado, pedir permiso y mostrar si el usuario concede
-      if (Notification.permission !== 'denied') {
+    // Helper to convert VAPID key
+    function urlBase64ToUint8Array(base64String: string) {
+      const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
+      const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
+      const rawData = window.atob(base64);
+      const outputArray = new Uint8Array(rawData.length);
+      for (let i = 0; i < rawData.length; ++i) {
+        outputArray[i] = rawData.charCodeAt(i);
+      }
+      return outputArray;
+    }
+
+    try {
+      // si ya se concedió permiso, mostrar inmediatamente
+      if (isNotificationSupported && Notification.permission === 'granted') {
+        showWelcomeNotification();
+      } else if (isNotificationSupported && Notification.permission !== 'denied') {
+        // pedir permiso y mostrar si el usuario concede
         Notification.requestPermission().then((perm) => {
           if (perm === 'granted') {
-            new Notification('Bienvenido a LumApp', {
-              body: 'Bienvenido a LumApp — descubre cómo cuidar tu espalda hoy.',
-              icon: '/favicon.ico',
-            });
+            showWelcomeNotification();
+          } else {
+            // usuario denegó al pedir el permiso
+            toast({ title: 'Notificaciones desactivadas', description: 'Has denegado el permiso de notificaciones. Puedes activarlo en la configuración del navegador.' });
           }
         });
+      } else {
+        // Notifications API no soportada -> fallback to toast
+        toast({ title: 'Notificaciones no disponibles', description: 'Tu navegador no soporta notificaciones web. Recibirás avisos en la app mientras esté abierta.' });
       }
     } catch (e) {
-      // ignore
+      // fallback
+      toast({ title: 'Notificaciones', description: 'No fue posible mostrar la notificación nativa. Verifica los permisos del navegador.' });
+    }
+
+    // Intentar registrar un service worker para habilitar push en segundo plano
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js').then(async (registration) => {
+        // Si el navegador soporta PushManager y hay una clave VAPID definida, intentar suscribir
+        try {
+          const vapidKey = process.env.NEXT_PUBLIC_VAPID_KEY;
+          if ('PushManager' in window && vapidKey) {
+            const existing = await registration.pushManager.getSubscription();
+            if (!existing) {
+              try {
+                const sub = await registration.pushManager.subscribe({
+                  userVisibleOnly: true,
+                  applicationServerKey: urlBase64ToUint8Array(vapidKey as string),
+                });
+                // No podemos enviar la suscripción al servidor aquí (requiere backend).
+                // Guardamos en localStorage para uso futuro.
+                try {
+                  window.localStorage.setItem('lumapp_push_subscription', JSON.stringify(sub));
+                } catch (e) {
+                  // ignore
+                }
+                toast({ title: 'Suscripción push registrada', description: 'La aplicación está preparada para notificaciones en segundo plano (requiere servidor para enviar push).' });
+              } catch (err) {
+                // Suscripción falló
+                // No es crítico: el usuario aún puede recibir notificaciones en primer plano.
+              }
+            }
+          }
+        } catch (e) {
+          // ignore
+        }
+      }).catch((err) => {
+        // Registro del service worker falló; usar toast como fallback informativo
+        toast({ title: 'Service Worker', description: 'No se pudo registrar el service worker; las notificaciones en segundo plano no estarán disponibles.' });
+      });
     }
   }, []);
 
   if (!isSetupComplete) {
     return (
         <AppContext.Provider value={value}>
-            <SetupScreen />
+      <SetupScreen />
         </AppContext.Provider>
     )
   }
 
   return (
     <AppContext.Provider value={value}>
-        <SidebarLayout>
-            {children}
-        </SidebarLayout>
+    {/* Inicializa OneSignal si NEXT_PUBLIC_ONESIGNAL_APP_ID está configurada */}
+    <OneSignalInit />
+    <SidebarLayout>
+      {children}
+    </SidebarLayout>
     </AppContext.Provider>
   );
 }
