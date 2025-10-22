@@ -1,8 +1,7 @@
-
-
-"use client"
+"use client";
 
 import Link from "next/link";
+import { Flame } from 'lucide-react';
 import { usePathname } from "next/navigation";
 import {
   BookOpen,
@@ -14,6 +13,9 @@ import {
   Phone,
   X,
 } from "lucide-react";
+
+import React from "react";
+
 import {
   SidebarProvider,
   Sidebar,
@@ -27,7 +29,12 @@ import {
   SidebarInset,
 } from "@/components/ui/sidebar";
 import { Button } from "./ui/button";
-import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "./ui/tooltip";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+  TooltipProvider,
+} from "./ui/tooltip";
 import { useContext, useState } from "react";
 import { AppContext } from "./AppStateProvider";
 import { cn } from "@/lib/utils";
@@ -62,7 +69,7 @@ const menuItems = [
 
 export function SidebarLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const { emergencyContact, emergencyPhone } = useContext(AppContext);
+  const { emergencyContact, emergencyPhone, streak } = useContext(AppContext);
   const [showSosOptions, setShowSosOptions] = useState(false);
 
   return (
@@ -88,7 +95,10 @@ export function SidebarLayout({ children }: { children: React.ReactNode }) {
                     isActive={pathname === item.href}
                     tooltip={item.label}
                   >
-                    <Link href={item.href} className="flex h-full w-full items-center gap-2">
+                    <Link
+                      href={item.href}
+                      className="flex h-full w-full items-center gap-2"
+                    >
                       <Icon />
                       <span>{item.label}</span>
                     </Link>
@@ -98,16 +108,28 @@ export function SidebarLayout({ children }: { children: React.ReactNode }) {
             })}
           </SidebarMenu>
         </SidebarContent>
-        <SidebarFooter/>
+        <SidebarFooter />
       </Sidebar>
       <SidebarInset>
         <header className="sticky top-0 z-20 flex h-14 items-center gap-4 border-b bg-background/80 px-4 backdrop-blur-sm md:h-auto md:border-none md:bg-transparent md:px-6 md:py-2">
-            <SidebarTrigger className="md:hidden"/>
-            <h1 className="font-headline text-xl font-semibold text-foreground md:hidden">LumApp</h1>
+          <SidebarTrigger className="md:hidden" />
+          <h1 className="font-headline text-xl font-semibold text-foreground md:hidden">
+            LumApp
+          </h1>
+          {/* Racha en el borde derecho de la navbar */}
+          {streak !== undefined && (
+            <div className="ml-auto flex items-center">
+              <div className="inline-flex items-center gap-2 rounded-full bg-card px-3 py-1 text-card-foreground shadow-sm">
+                <Flame className="text-amber-500" />
+                <div className="text-sm leading-none">
+                  <div className="font-semibold">{streak}</div>
+                  <div className="text-xs text-muted-foreground">día{streak === 1 ? '' : 's'}</div>
+                </div>
+              </div>
+            </div>
+          )}
         </header>
-        <main className="flex-1">
-         {children}
-        </main>
+        <main className="flex-1">{children}</main>
         <div className="fixed bottom-6 right-6 z-50">
           <div className="relative flex items-center justify-center">
             <div
@@ -120,7 +142,9 @@ export function SidebarLayout({ children }: { children: React.ReactNode }) {
             >
               <div className="flex items-center gap-3">
                 <div className="rounded-md bg-card px-3 py-1 text-card-foreground shadow-md">
-                  <p className="text-sm font-semibold">Llamar a {emergencyContact}</p>
+                  <p className="text-sm font-semibold">
+                    Llamar a {emergencyContact}
+                  </p>
                 </div>
                 <Button
                   asChild
@@ -136,7 +160,7 @@ export function SidebarLayout({ children }: { children: React.ReactNode }) {
 
               <div className="flex items-center gap-3">
                 <div className="rounded-md bg-card px-3 py-1 text-card-foreground shadow-md">
-                    <p className="text-sm font-semibold">Llamar a Emergencias</p>
+                  <p className="text-sm font-semibold">Llamar a Emergencias</p>
                 </div>
                 <Button
                   asChild

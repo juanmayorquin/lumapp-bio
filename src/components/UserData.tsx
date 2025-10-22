@@ -43,6 +43,12 @@ export function UserData() {
     emergencyContact, setEmergencyContact,
     emergencyPhone, setEmergencyPhone
   } = useContext(AppContext);
+  // obtener racha si existe
+  // @ts-ignore
+  const streak = (useContext(AppContext) as any).streak as number | undefined;
+  // clearUser puede no existir en versiones anteriores del contexto
+  // @ts-ignore
+  const clearUser = (useContext(AppContext) as any).clearUser as (() => void) | undefined;
 
   const [isEditingPersonal, setIsEditingPersonal] = useState(false);
   const [isEditingEmergency, setIsEditingEmergency] = useState(false);
@@ -238,17 +244,29 @@ export function UserData() {
         <CardHeader className="flex flex-row items-center justify-between">
           <div className="flex items-center gap-3">
             <User className="h-6 w-6 text-accent" />
-            <CardTitle className="font-headline text-xl">Datos Personales</CardTitle>
+            <div>
+              <CardTitle className="font-headline text-xl">Datos Personales</CardTitle>
+              {typeof streak !== 'undefined' && (
+                <p className="text-sm text-muted-foreground">Racha: <span className="font-semibold">{streak} día{streak === 1 ? '' : 's'}</span></p>
+              )}
+            </div>
           </div>
-          <Button 
-            variant="outline" 
-            size="icon" 
-            onClick={isEditingPersonal ? personalForm.handleSubmit(handlePersonalSave) : () => setIsEditingPersonal(true)}
-            disabled={isEditingPersonal && !personalForm.formState.isValid}
-          >
-            {isEditingPersonal ? <Save className="h-5 w-5 text-accent" /> : <Edit className="h-5 w-5" />}
-            <span className="sr-only">{isEditingPersonal ? "Guardar" : "Editar"}</span>
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button 
+              variant="outline" 
+              size="icon" 
+              onClick={isEditingPersonal ? personalForm.handleSubmit(handlePersonalSave) : () => setIsEditingPersonal(true)}
+              disabled={isEditingPersonal && !personalForm.formState.isValid}
+            >
+              {isEditingPersonal ? <Save className="h-5 w-5 text-accent" /> : <Edit className="h-5 w-5" />}
+              <span className="sr-only">{isEditingPersonal ? "Guardar" : "Editar"}</span>
+            </Button>
+            {clearUser && (
+              <Button variant="ghost" size="sm" onClick={() => { if (confirm('¿Borrar todos los datos de usuario?')) clearUser(); }}>
+                Borrar datos
+              </Button>
+            )}
+          </div>
         </CardHeader>
         <CardContent>
           {isEditingPersonal ? editModePersonal : viewModePersonal}
