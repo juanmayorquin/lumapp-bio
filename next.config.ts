@@ -9,8 +9,6 @@ const withPWA = require("next-pwa")({
 });
 
 const nextConfig: any = {
-  // enable the app directory (should already be used in this repo)
-  experimental: { appDir: true },
   typescript: {
     ignoreBuildErrors: true,
   },
