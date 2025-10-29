@@ -1,4 +1,4 @@
-Guía rápida: desplegar LumApp con OneSignal en Netlify
+Guía rápida: desplegar LumbApp con OneSignal en Netlify
 
 Requisitos previos
 - Cuenta en Netlify

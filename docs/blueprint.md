@@ -1,4 +1,4 @@
-# **App Name**: LumApp
+# **App Name**: LumbApp
 
 ## Core Features:
 

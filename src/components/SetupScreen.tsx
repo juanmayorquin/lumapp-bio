@@ -76,7 +76,7 @@ export function SetupScreen() {
                     <div className="inline-flex items-center gap-3 rounded-lg bg-card p-4">
                         <HeartPulse className="h-8 w-8 text-accent" />
                         <h1 className="font-headline text-4xl font-bold text-foreground">
-                            Bienvenido a LumApp
+                            Bienvenido a LumbApp
                         </h1>
                     </div>
                     <p className="mt-2 text-muted-foreground">Configuremos tu perfil para comenzar.</p>

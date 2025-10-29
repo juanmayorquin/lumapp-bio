@@ -192,13 +192,13 @@ export function AppStateProvider({ children }: { children: React.ReactNode }) {
     const showWelcomeNotification = () => {
       try {
         // This will show a notification while the page is open (foreground).
-        new Notification('Bienvenido a LumApp', {
-          body: 'Bienvenido a LumApp — descubre cómo cuidar tu espalda hoy.',
+        new Notification('Bienvenido a LumbApp', {
+          body: 'Bienvenido a LumbApp — descubre cómo cuidar tu espalda hoy.',
           icon: '/favicon.ico',
         });
       } catch (e) {
         // If Notifications are available but constructor fails, fallback to toast
-        toast({ title: 'Bienvenido a LumApp', description: 'Bienvenido a LumApp — descubre cómo cuidar tu espalda hoy.' });
+        toast({ title: 'Bienvenido a LumbApp', description: 'Bienvenido a LumbApp — descubre cómo cuidar tu espalda hoy.' });
       }
     };
 

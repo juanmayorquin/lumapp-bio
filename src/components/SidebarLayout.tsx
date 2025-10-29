@@ -81,7 +81,7 @@ export function SidebarLayout({ children }: { children: React.ReactNode }) {
               <HeartPulse className="h-6 w-6 text-accent" />
             </div>
             <h1 className="font-headline text-2xl font-bold text-foreground group-data-[collapsible=icon]:hidden">
-              LumApp
+              LumbApp
             </h1>
           </div>
         </SidebarHeader>
@@ -114,7 +114,7 @@ export function SidebarLayout({ children }: { children: React.ReactNode }) {
         <header className="sticky top-0 z-20 flex h-14 items-center gap-4 border-b bg-background/80 px-4 backdrop-blur-sm md:h-auto md:border-none md:bg-transparent md:px-6 md:py-2">
           <SidebarTrigger className="md:hidden" />
           <h1 className="font-headline text-xl font-semibold text-foreground md:hidden">
-            LumApp
+            LumbApp
           </h1>
           {/* Racha en el borde derecho de la navbar */}
           {streak !== undefined && (

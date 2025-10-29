@@ -1,6 +1,6 @@
-# 🌸 LumApp – Asistente educativo para el cuidado lumbar
+# 🌸 LumbApp – Asistente educativo para el cuidado lumbar
 
-**LumApp** es una **Progressive Web App (PWA)** desarrollada en **React** con **Next.js**, diseñada para ofrecer **asistencia educativa, práctica y preventiva** a personas con **dolores lumbares**.  
+**LumbApp** es una **Progressive Web App (PWA)** desarrollada en **React** con **Next.js**, diseñada para ofrecer **asistencia educativa, práctica y preventiva** a personas con **dolores lumbares**.  
 Su propósito es brindar orientación confiable sobre ejercicios, precauciones y educación postural, promoviendo hábitos saludables y el autocuidado.
 
 ---
@@ -21,7 +21,7 @@ Los módulos principales son:
 
 ## 🏗️ Arquitectura del proyecto
 
-LumApp utiliza una **arquitectura modular basada en componentes**, organizada en tres capas principales:
+LumbApp utiliza una **arquitectura modular basada en componentes**, organizada en tres capas principales:
 
 ### 1. **Capa de Presentación (Frontend)**
 - Desarrollada con **React y Next.js**, implementando **Server-Side Rendering (SSR)** para mejorar el rendimiento y SEO.  
@@ -47,7 +47,7 @@ LumApp utiliza una **arquitectura modular basada en componentes**, organizada en
 ## ⚙️ Flujo de funcionamiento
 Usuario → Interfaz (Next.js) → JSON/LocalStorage → Renderizado dinámico
 
-1. El usuario accede a LumApp desde el navegador o la instalación PWA.  
+1. El usuario accede a LumbApp desde el navegador o la instalación PWA.  
 2. Los componentes consultan la información almacenada en los archivos JSON locales.  
 3. El contenido se muestra dinámicamente según la sección seleccionada.  
 4. La aplicación puede operar sin conexión gracias al Service Worker.  

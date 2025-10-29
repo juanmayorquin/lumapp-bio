@@ -5,7 +5,7 @@ import { AppStateProvider } from '@/components/AppStateProvider';
 import ServiceWorkerRegister from '@/components/ServiceWorkerRegister';
 
 export const metadata: Metadata = {
-  title: 'LumApp',
+  title: 'LumbApp',
   description: 'Tu compañero personal para la salud lumbar.',
 };
 
