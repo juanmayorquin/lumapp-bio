@@ -1,1 +1,1 @@
-declare module 'next-pwa/register';
+declare module "next-pwa/register";
