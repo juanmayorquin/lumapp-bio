@@ -1,18 +1,30 @@
 [
   {
     "id": "rec1",
-    "text": "Manténgase activo, pero evite actividades que causen dolor."
+    "text": "Mantén la espalda recta al sentarte y usa sillas con respaldo adecuado."
   },
   {
     "id": "rec2",
-    "text": "Aplique calor o hielo en la zona dolorida durante 15-20 minutos cada vez."
+    "text": "Evita encorvarte al trabajar o usar el celular."
   },
   {
     "id": "rec3",
-    "text": "Considere la fisioterapia para un plan de ejercicios y recuperación personalizado."
+    "text": "Duerme boca arriba con una almohada bajo las rodillas para mantener una buena alineación de la espalda."
   },
   {
     "id": "rec4",
-    "text": "Mantenga un peso saludable para reducir el estrés adicional en su espalda."
+    "text": "Evita colchones demasiado blandos que no brinden soporte adecuado."
+  },
+  {
+    "id": "rec5",
+    "text": "Haz pausas cada 30–40 minutos si trabajas sentado; levántate, camina y realiza estiramientos suaves."
+  },
+  {
+    "id": "rec6",
+    "text": "Al manejar, adelanta el asiento para mantener las rodillas dobladas y más altas que la cadera; toma el volante con ambas manos y coloca una almohadilla detrás de la espalda si es necesario."
+  },
+  {
+    "id": "rec7",
+    "text": "Al vestirte, siéntate para evitar inclinarte hacia adelante; usa un banquito o cruza una pierna sobre la otra para alcanzar el pie con mayor facilidad."
   }
 ]

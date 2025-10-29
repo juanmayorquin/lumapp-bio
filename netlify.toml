@@ -6,15 +6,7 @@
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
-[[headers]]
-  for = "/OneSignalSDKWorker.js"
-  [headers.values]
-    Cache-Control = "no-cache"
 
-[[headers]]
-  for = "/OneSignalSDKUpdaterWorker.js"
-  [headers.values]
-    Cache-Control = "no-cache"
 
 [[headers]]
   for = "/sw.js"

@@ -1,20 +1,38 @@
 [
   {
     "id": "ex1",
-    "title": "Inclinación Pélvica",
-    "description": "Acuéstese de espaldas con las rodillas flexionadas. Aplane la espalda contra el suelo contrayendo los músculos abdominales y doblando ligeramente la pelvis hacia arriba. Mantenga la posición durante 10 segundos. Repita de 8 a 12 veces.",
-    "videoUrl": "https://www.youtube.com/embed/3-x0wAnS6-I"
+    "title": "Círculos de Hombros",
+    "description": "De pie, eleve los hombros hacia las orejas y trace círculos hacia atrás y hacia adelante de forma suave y controlada. Realice 10 giros hacia adelante y 10 giros hacia atrás.",
+    "videoUrl": "https://www.youtube.com/embed/acPmyD1nISw"
   },
   {
     "id": "ex2",
-    "title": "Rodilla al Pecho",
-    "description": "Acuéstese de espaldas con las rodillas flexionadas y los pies apoyados en el suelo. Lleve una rodilla al pecho, manteniendo el otro pie apoyado en el suelo (o la otra pierna estirada, lo que se sienta mejor en la parte baja de la espalda). Mantenga la posición de 15 a 30 segundos. Repita con la otra pierna. Haga de 2 a 4 repeticiones por cada pierna.",
-    "videoUrl": "https://www.youtube.com/embed/5b2b2y_B-vE"
+    "title": "Círculos de Cadera",
+    "description": "Con los pies separados al ancho de los hombros y las manos en la cintura, realice movimientos circulares con la cadera hacia un lado y luego hacia el otro. Haga 10 círculos hacia la derecha y 10 hacia la izquierda.",
+    "videoUrl": "https://www.youtube.com/embed/vfsL85jpDIc"
   },
   {
     "id": "ex3",
-    "title": "Estiramiento Gato-Vaca",
-    "description": "Comience a cuatro patas. Al inhalar, deje que su vientre se hunda hacia el suelo (Vaca). Al exhalar, redondee la columna hacia el techo (Gato). Continúe durante 10-15 respiraciones.",
-    "videoUrl": "https://www.youtube.com/embed/kqnua4rHVVA"
+    "title": "Rodillas al Pecho",
+    "description": "Acostado boca arriba, lleve suavemente una rodilla al pecho y mantenga la posición durante 15 segundos. Repita con la otra pierna.",
+    "videoUrl": "https://www.youtube.com/embed/af7t-SnWzyQ"
+  },
+  {
+    "id": "ex4",
+    "title": "Puente Lumbar",
+    "description": "Acostado boca arriba con las rodillas dobladas, eleve lentamente la pelvis manteniendo el control del movimiento. Realice 5 repeticiones controladas.",
+    "videoUrl": "https://www.youtube.com/embed/p6DruyBD050"
+  },
+  {
+    "id": "ex5",
+    "title": "Estiramiento del Gato y la Vaca",
+    "description": "En posición de cuatro apoyos, alterne entre arquear la espalda (Gato) y hundirla (Vaca). Realice 5 repeticiones controladas.",
+    "videoUrl": "https://www.youtube.com/embed/XMwfguNY5bw"
+  },
+  {
+    "id": "ex6",
+    "title": "Torsión Lumbar Suave",
+    "description": "Acostado boca arriba con los brazos extendidos, gire suavemente las rodillas hacia un lado manteniendo los hombros apoyados en el suelo. Realice 5 repeticiones por cada lado, de forma lenta y controlada.",
+    "videoUrl": "https://www.youtube.com/embed/uxAXs2Vyc7k"
   }
 ]

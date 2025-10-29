@@ -4,31 +4,30 @@ import { SidebarLayout } from '@/components/SidebarLayout';
 import React, { useState, useCallback, useEffect, useRef, useMemo } from 'react';
 import { SetupScreen } from './SetupScreen';
 import localStorageService, { UserData } from '@/services/localStorageService';
-import { toast } from '@/hooks/use-toast';
-import OneSignalInit from './OneSignalInit';
+import { toast, useToast } from '@/hooks/use-toast';
 
 export const AppContext = React.createContext<any>({
   name: "",
-  setName: () => {},
+  setName: () => { },
   age: "",
-  setAge: () => {},
+  setAge: () => { },
   sex: "masculino",
-  setSex: () => {},
+  setSex: () => { },
   weight: "",
-  setWeight: () => {},
+  setWeight: () => { },
   height: "",
-  setHeight: () => {},
+  setHeight: () => { },
   painLevel: [5],
-  setPainLevel: () => {},
+  setPainLevel: () => { },
   emergencyContact: "",
-  setEmergencyContact: () => {},
+  setEmergencyContact: () => { },
   emergencyPhone: "",
-  setEmergencyPhone: () => {},
+  setEmergencyPhone: () => { },
   isSetupComplete: false,
-  completeSetup: () => {},
+  completeSetup: () => { },
   streak: 0,
   lastVisit: undefined,
-  clearUser: () => {},
+  clearUser: () => { },
 });
 
 export function AppStateProvider({ children }: { children: React.ReactNode }) {
@@ -46,6 +45,15 @@ export function AppStateProvider({ children }: { children: React.ReactNode }) {
 
   // ref used for debounce
   const saveTimeout = useRef<number | null>(null);
+
+  // hook para controlar toasts (dismiss)
+  const { dismiss } = useToast();
+
+  // keep a ref to dismiss to avoid unstable identity causing effects to re-run
+  const dismissRef = useRef(dismiss);
+  useEffect(() => {
+    dismissRef.current = dismiss;
+  }, [dismiss]);
 
   const handleFieldChange = useCallback((setter: React.Dispatch<React.SetStateAction<any>>) => (value: any) => {
     setter(value);
@@ -137,7 +145,7 @@ export function AppStateProvider({ children }: { children: React.ReactNode }) {
       }
     };
   }, [name, age, sex, weight, height, painLevel, emergencyContact, emergencyPhone, isSetupComplete, streak, lastVisit]);
-  
+
 
   // Racha: al montar/comprobar sesión, actualizar streak y lastVisit
   useEffect(() => {
@@ -183,113 +191,55 @@ export function AppStateProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
-  // Notificación de bienvenida: mostrar en cada carga si el permiso está concedido o tras concederlo
+  // flag to suppress other toasts during initial welcome window
+  const suppressToasts = React.useRef(true);
+
+  // show welcome toast and dismiss others on mount BUT only if an existing user is registered
   useEffect(() => {
-    if (typeof window === 'undefined') return;
+    const saved = localStorageService.getUser();
+    // Only show welcome if there's a saved user who completed setup (registered)
+    if (!saved || !saved.isSetupComplete) return;
 
-    const isNotificationSupported = 'Notification' in window;
-
-    const showWelcomeNotification = () => {
-      try {
-        // This will show a notification while the page is open (foreground).
-        new Notification('Bienvenido a LumbApp', {
-          body: 'Bienvenido a LumbApp — descubre cómo cuidar tu espalda hoy.',
-          icon: '/favicon.ico',
-        });
-      } catch (e) {
-        // If Notifications are available but constructor fails, fallback to toast
-        toast({ title: 'Bienvenido a LumbApp', description: 'Bienvenido a LumbApp — descubre cómo cuidar tu espalda hoy.' });
-      }
-    };
-
-    // Helper to convert VAPID key
-    function urlBase64ToUint8Array(base64String: string) {
-      const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
-      const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
-      const rawData = window.atob(base64);
-      const outputArray = new Uint8Array(rawData.length);
-      for (let i = 0; i < rawData.length; ++i) {
-        outputArray[i] = rawData.charCodeAt(i);
-      }
-      return outputArray;
-    }
-
+    // Dismiss any existing toasts and show welcome toast
     try {
-      // si ya se concedió permiso, mostrar inmediatamente
-      if (isNotificationSupported && Notification.permission === 'granted') {
-        showWelcomeNotification();
-      } else if (isNotificationSupported && Notification.permission !== 'denied') {
-        // pedir permiso y mostrar si el usuario concede
-        Notification.requestPermission().then((perm) => {
-          if (perm === 'granted') {
-            showWelcomeNotification();
-          } else {
-            // usuario denegó al pedir el permiso
-            toast({ title: 'Notificaciones desactivadas', description: 'Has denegado el permiso de notificaciones. Puedes activarlo en la configuración del navegador.' });
-          }
-        });
-      } else {
-        // Notifications API no soportada -> fallback to toast
-        toast({ title: 'Notificaciones no disponibles', description: 'Tu navegador no soporta notificaciones web. Recibirás avisos en la app mientras esté abierta.' });
-      }
+      dismissRef.current?.();
     } catch (e) {
-      // fallback
-      toast({ title: 'Notificaciones', description: 'No fue posible mostrar la notificación nativa. Verifica los permisos del navegador.' });
+      // ignore if dismiss not available
     }
 
-    // Intentar registrar un service worker para habilitar push en segundo plano
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js').then(async (registration) => {
-        // Si el navegador soporta PushManager y hay una clave VAPID definida, intentar suscribir
-        try {
-          const vapidKey = process.env.NEXT_PUBLIC_VAPID_KEY;
-          if ('PushManager' in window && vapidKey) {
-            const existing = await registration.pushManager.getSubscription();
-            if (!existing) {
-              try {
-                const sub = await registration.pushManager.subscribe({
-                  userVisibleOnly: true,
-                  applicationServerKey: urlBase64ToUint8Array(vapidKey as string),
-                });
-                // No podemos enviar la suscripción al servidor aquí (requiere backend).
-                // Guardamos en localStorage para uso futuro.
-                try {
-                  window.localStorage.setItem('lumapp_push_subscription', JSON.stringify(sub));
-                } catch (e) {
-                  // ignore
-                }
-                toast({ title: 'Suscripción push registrada', description: 'La aplicación está preparada para notificaciones en segundo plano (requiere servidor para enviar push).' });
-              } catch (err) {
-                // Suscripción falló
-                // No es crítico: el usuario aún puede recibir notificaciones en primer plano.
-              }
-            }
-          }
-        } catch (e) {
-          // ignore
-        }
-      }).catch((err) => {
-        // Registro del service worker falló; usar toast como fallback informativo
-        toast({ title: 'Service Worker', description: 'No se pudo registrar el service worker; las notificaciones en segundo plano no estarán disponibles.' });
-      });
-    }
+    // Show welcome toast (TOAST_LIMIT = 1 ensures it replaces others)
+    toast({ title: 'Bienvenido a LumbApp', description: 'Bienvenido a LumbApp — descubre cómo cuidar tu espalda hoy.' });
+
+    // Keep suppressing other toasts for a short window (3s) so welcome is the visible one
+    const t = window.setTimeout(() => {
+      suppressToasts.current = false;
+      window.clearTimeout(t);
+    }, 3000);
+    return () => {
+      window.clearTimeout(t);
+    };
+    // run only once on mount (we use dismissRef inside)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Removed native Notification API and service worker / push subscription logic.
+  // Per product decision, the app will no longer ask for native notification permission
+  // or attempt to register push — instead we only show an in-app toast on startup
+  // for existing registered users (handled above).
 
   if (!isSetupComplete) {
     return (
-        <AppContext.Provider value={value}>
-      <SetupScreen />
-        </AppContext.Provider>
+      <AppContext.Provider value={value}>
+        <SetupScreen />
+      </AppContext.Provider>
     )
   }
 
   return (
     <AppContext.Provider value={value}>
-    {/* Inicializa OneSignal si NEXT_PUBLIC_ONESIGNAL_APP_ID está configurada */}
-    <OneSignalInit />
-    <SidebarLayout>
-      {children}
-    </SidebarLayout>
+      <SidebarLayout>
+        {children}
+      </SidebarLayout>
     </AppContext.Provider>
   );
 }
