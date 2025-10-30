@@ -3,35 +3,35 @@
     "id": "pre1",
     "title": "Levantar objetos pesados sin flexionar las rodillas",
     "image_id": "heavy-lifting-wrong",
-    "imageUrl": "https://example.com/images/heavy-lifting-wrong.jpg",
+    "imageUrl": "/images/levantar.jpg",
     "is_good": false
   },
   {
     "id": "pre2",
     "title": "Permanecer sentado demasiado tiempo sin pausas",
     "image_id": "long-sitting",
-    "imageUrl": "https://example.com/images/heavy-lifting-wrong.jpg",
+    "imageUrl": "/images/sentado.jpg",
     "is_good": false
   },
   {
     "id": "pre3",
     "title": "Dormir boca abajo prolongadamente",
     "image_id": "sleeping-face-down",
-    "imageUrl": "https://example.com/images/heavy-lifting-wrong.jpg",
+    "imageUrl": "/images/dormir.jpg",
     "is_good": false
   },
   {
     "id": "pre4",
     "title": "Realizar giros bruscos con la columna",
     "image_id": "sudden-twisting",
-    "imageUrl": "https://example.com/images/heavy-lifting-wrong.jpg",
+    "imageUrl": "/images/giros.jpg",
     "is_good": false
   },
   {
     "id": "pre5",
     "title": "Mantener una postura inadecuada",
     "image_id": "bad-posture",
-    "imageUrl": "https://example.com/images/heavy-lifting-wrong.jpg",
+    "imageUrl": "/images/postura.jpg",
     "is_good": false
   }
 ]
