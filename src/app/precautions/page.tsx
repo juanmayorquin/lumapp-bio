@@ -15,10 +15,6 @@ type PrecautionItem = {
 
 const PrecautionCard = ({ item }: { item: PrecautionItem }) => {
         const image = PlaceHolderImages.find(p => p.id === item.image_id);
-        // Determine image source:
-        // 1. If the item provides a local imageUrl (relative path like "images/.."), prefer that (serves from /public).
-        // 2. Otherwise, if there's a placeholder remote image for the image_id, use that.
-        // 3. Fallback to any absolute imageUrl on the item.
         let src: string | undefined = undefined;
         if (item.imageUrl && !item.imageUrl.startsWith('http')) {
             // local path in public/
@@ -40,11 +36,14 @@ const PrecautionCard = ({ item }: { item: PrecautionItem }) => {
                         data-ai-hint={image?.imageHint}
                         width={400}
                         height={300}
-                        className="aspect-[3/5] w-full object-cover"
+                        className=" w-full object-cover"
                     />
                 )}
-                 <div className={`absolute top-2 right-2 flex h-8 w-8 items-center justify-center rounded-full ${item.is_good ? 'bg-green-500/80' : 'bg-red-500/80'}`}>
-                    {item.is_good ? <Check className="h-5 w-5 text-white" /> : <X className="h-5 w-5 text-white" />}
+                 <div className={`absolute top-2 left-2 flex h-8 w-8 items-center justify-center rounded-full bg-red-500/80`}>
+                    <X className="h-5 w-5 text-white" />
+                </div>
+                 <div className={`absolute top-2 right-2 flex h-8 w-8 items-center justify-center rounded-full bg-green-500/80`}>
+                    <Check className="h-5 w-5 text-white" />
                 </div>
             </CardHeader>
             <CardContent className="p-4">

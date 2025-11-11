@@ -3,21 +3,25 @@
   {
     "id": "edu1",
     "title": "¿Qué es columna lumbar?",
-    "content": "5 vértebras (L1-L5) que dan soporte y movimiento a la parte baja de la espalda. El dolor lumbar es el principal causante de años vividos con discapacidad a nivel mundial."
+    "content": "5 vértebras (L1-L5) que dan soporte y movimiento a la parte baja de la espalda. El dolor lumbar es el principal causante de años vividos con discapacidad a nivel mundial.",
+    "videoUrl": "https://www.youtube.com/watch?v=LxAd8R63E3E"
   },
   {
     "id": "edu2",
     "title": "¿Qué tan frecuente es?",
-    "content": "En 2020 afectó a ~619 millones de personas y podría subir a 843 millones para 2050."
+    "content": "En 2020 afectó a ~619 millones de personas y podría subir a 843 millones para 2050.",
+    "videoUrl": "https://www.youtube.com/watch?v=Ib8jlwkLYnQ"
   },
   {
     "id": "edu3",
     "title": "¿Por qué duele?",
-    "content": "Suele ser no específico (sin lesión única clara); influyen carga física, posturas prolongadas, bajo acondicionamiento y factores psicosociales."
+    "content": "Suele ser no específico (sin lesión única clara); influyen carga física, posturas prolongadas, bajo acondicionamiento y factores psicosociales.",
+    "videoUrl": "https://www.youtube.com/watch?v=PCUMB8IrYAg"
   },
   {
     "id": "edu4",
     "title": "¿Cuándo consultar?",
-    "content": "Dolor que no mejora, debilidad progresiva, pérdida de sensibilidad, fiebre, pérdida de control de esfínteres o trauma → valoración médica."
+    "content": "Dolor que no mejora, debilidad progresiva, pérdida de sensibilidad, fiebre, pérdida de control de esfínteres o trauma → valoración médica.",
+    "videoUrl": "https://www.youtube.com/watch?v=PCUMB8IrYAg"
   }
 ]

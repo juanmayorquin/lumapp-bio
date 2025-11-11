@@ -7,18 +7,57 @@ type EducationItem = {
     id: string;
     title?: string;
     content?: string;
+    videoUrl?: string;
 }
 
-const EducationCard = ({ item }: { item: EducationItem }) => (
-  <Card className="bg-card border shadow-lg backdrop-blur-sm">
-    <CardHeader>
-      <CardTitle className="text-primary font-semibold">{item.title}</CardTitle>
-    </CardHeader>
-    <CardContent>
-      <p className="text-foreground/80">{item.content}</p>
-    </CardContent>
-  </Card>
-);
+const toEmbedUrl = (url?: string) => {
+  if (!url) return null;
+  try {
+    const u = new URL(url);
+    // youtube watch URL
+    if (u.hostname.includes('youtube.com')) {
+      const v = u.searchParams.get('v');
+      if (v) return `https://www.youtube.com/embed/${v}`;
+    }
+    // youtu.be short link
+    if (u.hostname === 'youtu.be') {
+      const id = u.pathname.replace(/^\//, '');
+      if (id) return `https://www.youtube.com/embed/${id}`;
+    }
+    // fallback: return original
+    return url;
+  } catch (e) {
+    return url;
+  }
+};
+
+const EducationCard = ({ item }: { item: EducationItem }) => {
+  const embed = toEmbedUrl(item.videoUrl);
+  return (
+    <Card className="bg-card border shadow-lg backdrop-blur-sm">
+      <CardHeader>
+        <CardTitle className="text-primary font-semibold">{item.title}</CardTitle>
+      </CardHeader>
+      <CardContent>
+        {embed && (
+          <div className="mb-4">
+            <div className="relative w-full" style={{ paddingTop: '56.25%' }}>
+              <iframe
+                src={embed}
+                title={item.title}
+                className="absolute inset-0 h-full w-full"
+                frameBorder={0}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </div>
+          </div>
+        )}
+        <p className="text-foreground/80">{item.content}</p>
+      </CardContent>
+    </Card>
+  );
+};
 
 export default function EducationPage() {
   const spineBg = PlaceHolderImages.find(p => p.id === "spine-background");
